@@ -1,19 +1,29 @@
 import logo from './logo.svg';
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState,useEffect } from 'react';
+import Category from './components/Category';
+import Expenses from './components/Expenses';
+import NavBar from './components/NavBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './containers/Home'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 
 function App() {
-  const [categories, setCategories] = useState([]);
-
-  fetch('http://localhost:8080/api/categories')
-  .then(response => response.json())
-  .then(data => setCategories(data));
 
   return (
     <div className="App">
-      <header className="App-header">
-          {categories.map(x => <p> {x} </p>)}
-      </header>
+      <Router>
+          <Switch>
+              <Route path="/" exact={true} component={Home}/>
+              <Route path="/categories" exact={true} component={Category}/>
+              <Route path="/expenses" exact={true} component={Expenses}/>
+          </Switch>
+      </Router>
     </div>
   );
 }
